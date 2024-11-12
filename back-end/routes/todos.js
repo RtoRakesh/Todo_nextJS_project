@@ -12,7 +12,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
+  console.log(`Received PATCH request for ID: ${req.params.id}`);
   try {
     const todo = await Todo.findById(req.params.id);
     if (!todo) return res.status(404).json({ message: "Todo not found" });
@@ -21,6 +22,8 @@ router.put("/:id", async (req, res) => {
     const updatedTodo = await todo.save();
     res.json(updatedTodo);
   } catch (error) {
+    console.log(err);
+
     res.status(400).json({ message: error.message });
   }
 });
